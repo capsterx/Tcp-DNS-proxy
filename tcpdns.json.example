@@ -1,22 +1,29 @@
 {
     "socket_timeout": 20,
-    "host": "0.0.0.0",
+    "host": "172.17.0.1",
     "port": 53,
-    "tcp_dns_server": ["8.8.8.8:53",
-                       "8.8.4.4:53",
-                       "156.154.70.1:53",
-                       "156.154.71.1:53",
-                       "208.67.222.222:53",
-                       "208.67.220.220:53",
-                       "209.244.0.3:53"],
-    "udp_dns_server": ["208.67.222.222:5353"],
-    "enable_server_switch": true,
-    "speed_test"      : false,
-    "enable_lru_cache": true,
-    "lru_cache_size"  : 500,
-    "udp_mode"        : false,
-    "daemon_process"  : false,
-    "internal_dns_server": ["192.168.1.1:53"],
-    "internal_domain":["*intra*"],
-    "private_host"    : {"*google.com": "203.117.34.162"}
+    "dns": [
+      {
+        "match": ["hackery.google.com"],
+        "resolve_to": "172.0.0.1"
+      },
+      {
+        "match": ["notreallyinternal.internal.com"],
+        "host": "8.8.8.8",
+        "port": 53,
+        "udp": true
+      },
+      {
+        "match": ["*internal.com"],
+        "host": "1.1.1.1",
+        "port": 53,
+        "udp": false
+      },
+      {
+        "match": "*",
+        "host": "8.8.8.8",
+        "port": 53,
+        "udp": true
+      }
+    ]
 }
