@@ -146,10 +146,10 @@ class DNS_Server:
           s.connect((server, int(port)))
           s.send(sendbuf)
           data = s.recv(2048)
+          return data
       finally:
           if s:
               s.close()
-          return data
 
   def check_dns_packet(self, data, q_type, udp):
       test_ipv4 = False
